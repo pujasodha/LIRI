@@ -27,9 +27,8 @@ switch (commands) {
 }
 
 function myTweets() {
-    var user = new twitter(key.twitterKeys)
     var parameter = { screen_name: 'pujpuj33', count: 20 }
-    user.get('statuses/user_timeline', parameter, function (error, tweets, response) {
+     client.get('statuses/user_timeline', parameter, function (error, tweets, response) {
         for (var i = 0; i < tweets.length; i++) {
             if (!error) {
                 console.log("Date: " + tweets[i].created_at)
@@ -68,27 +67,15 @@ function movieThis () {
         if(e){
             console.log('error: ', error)
         }
-        else {
-        console.log('statusCode: ', response && response.statusCode)
-        console.log(body)
-        console.log("======================")
-
-        console.log("Title: " +JSON.parse(body)['Title'])
-
-        console.log("Year: " + JSON.parse(body)['Year'])
-
-        console.log("IMDB Rating: " + JSON.parse(body)['imdbRating'])
-
-        console.log('Country: ' + JSON.parse(body)['Country'])
-
-        console.log("Plot: " + JSON.parse(body)['Plot'])
-
-        console.log("Actors: " + JSON.parse(body)['Actors'])
-
-        console.log("Rotten Tomatoes Rating: " + JSON.parse(body)['Ratings']['Value'])
-            
-        console.log("=========================")
-
+        if (response.statusCode === 200) {
+            var movieObject = JSON.parse(body);
+            console.log(
+              "Title: " + movieObject.Title + " , " +
+              "Year: " + movieObject.Year + " , " +
+              "Rating: " + movieObject.imdbRating + " , " +
+              "Actors: " + movieObject.Actors + " , " +
+              "Plot: " + movieObject.Plot
+            )
         }
 
     })
