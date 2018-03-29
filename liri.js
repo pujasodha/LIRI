@@ -35,6 +35,9 @@ function myTweets() {
                 console.log("Tweet" + tweets[i].text)
                 console.log("======================")
             }
+            fs.appendFile('log.txt', ("Date: " + tweets[i].created_at + "\nTweet: " + tweets[i].text + "\n"), function(error){
+                if (error) {console.log(error)}
+            })
         }
     })
 }
@@ -57,8 +60,11 @@ function spotifySong() {
         console.log("Link: "+ spotifyResponse[0].album.external_urls.spotify)
         console.log("Album: " + spotifyResponse[0].album.name)
         console.log("======================")
-    })
-}
+
+        
+        })
+    }
+
 
 function movieThis () {
     var movie = process.argv[3];
